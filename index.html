@@ -1,13 +1,61 @@
-<form>
-<label for="intersection">Intersection with Trendline:</label><br>
-  <input type="text" id="intersection" name="intersection"><br>
-<label for="atr">ATR:</label><br>
-  <input type="text" id="atr" name="atr"><br>
-<label for="entryprice">Entry Price:</label><br>
-  <input type="text" id="entryprice" name="entryprice"><br>
-<input type="radio" id="long" name="longshort" value="Long">
-  <label for="long">Long</label><br>
-<input type="radio" id="short" name="longshort" value="Short">
-  <label for="short">Short</label><br>
-<input type="submit" value="Calculate">
+<form id="form-id">
+  <label for="intersection">Intersection with Trendline:</label><br>
+    <input type="text" id="intersection" name="intersection"><br>
+  <label for="atr">ATR:</label><br>
+    <input type="text" id="atr" name="atr"><br>
+  <label for="entryprice">Entry Price:</label><br>
+    <input type="text" id="entryprice" name="entryprice"><br>
+  <input type="radio" id="long" name="longshort" value="Long">
+    <label for="long">Long</label><br>
+  <input type="radio" id="short" name="longshort" value="Short">
+    <label for="short">Short</label><br>
+   <label for="amtrisked">Amount Risked:</label><br>
+    <input type="text" id="amtrisked" name="amtrisked"><br>
+  <button type="button" id='submit-btn' value="Calculate" onclick="calculate(this.form)">Calculate</button>
 </form>
+
+<label>Stop Loss:</label>
+<div id="result"></div>
+<br/>
+<label>Share:</label>
+<div id="shareResult"></div>
+<br/>
+<label>TP1:</label>
+<div id="tp1"></div>
+<label>TP2:</label>
+<div id="tp2"></div>
+<label>TP3:</label>
+<div id="tp3"></div>
+<script>
+  function calculate(form) {
+    var intersectionValue = parseFloat(form.intersection.value)
+    var atrValue = parseFloat(form.atr.value)
+    var entryValue = parseFloat(form.entryprice.value)
+    var typeValue = form.longshort.value
+    var amtriskedValue = parseFloat(form.amtrisked.value)
+    var stoploss;
+    var tp1;
+    var tp2
+    var tp3
+
+    if (typeValue == "Long") {
+      stoploss = intersectionValue - atrValue
+      tp1 = entryValue + (1.5 * Math.abs(entryValue - stoploss))
+      tp2 = entryValue + (2 * Math.abs(entryValue - stoploss))
+      tp3 = entryValue + (3 * Math.abs(entryValue - stoploss))
+    } else {
+      stoploss = intersectionValue + atrValue
+      tp1 = entryValue - (1.5 * Math.abs(entryValue - stoploss))
+      tp2 = entryValue - (2 * Math.abs(entryValue - stoploss))
+      tp3 = entryValue - (3 * Math.abs(entryValue - stoploss))
+    }
+
+    var numberOfShares = amtriskedValue / Math.abs(entryValue-stoploss)
+
+    document.getElementById("result").innerHTML = stoploss
+    document.getElementById("shareResult").innerHTML = numberOfShares
+    document.getElementById("tp1").innerHTML = tp1
+    document.getElementById("tp2").innerHTML = tp2
+    document.getElementById("tp3").innerHTML = tp3
+  }
+  </script>
