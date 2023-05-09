@@ -1,31 +1,40 @@
 <form id="form-id">
   <label for="intersection">Intersection with Trendline:</label><br>
     <input type="text" id="intersection" name="intersection"><br>
+
   <label for="atr">ATR:</label><br>
     <input type="text" id="atr" name="atr"><br>
+
   <label for="entryprice">Entry Price:</label><br>
     <input type="text" id="entryprice" name="entryprice"><br>
+
   <input type="radio" id="long" name="longshort" value="Long">
     <label for="long">Long</label><br>
+
   <input type="radio" id="short" name="longshort" value="Short">
     <label for="short">Short</label><br>
+
    <label for="amtrisked">Amount Risked:</label><br>
     <input type="text" id="amtrisked" name="amtrisked"><br>
-  <button type="button" id='submit-btn' value="Calculate" onclick="calculate(this.form)">Calculate</button>
+
+  <button type="button" id="submit-btn" value="Calculate" onclick="calculate(this.form)">Calculate</button>
 </form>
 
 <label>Stop Loss:</label>
 <div id="result"></div>
-<br/>
-<label>Share:</label>
+<br>
+<label>No. of Shares:</label>
 <div id="shareResult"></div>
-<br/>
+<br>
 <label>TP1:</label>
 <div id="tp1"></div>
+<br>
 <label>TP2:</label>
 <div id="tp2"></div>
+<br>
 <label>TP3:</label>
 <div id="tp3"></div>
+
 <script>
   function calculate(form) {
     var intersectionValue = parseFloat(form.intersection.value)
